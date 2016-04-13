@@ -13,5 +13,8 @@ return [
             'name' => 'slim-app',
             'path' => __DIR__ . '/../logs/app.log',
         ],
+
+        // Campaign Monitor API key
+        'cmApiKey' => ''
     ],
 ];
