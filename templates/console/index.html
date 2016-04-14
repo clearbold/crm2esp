@@ -1,5 +1,56 @@
 {% extends "_layout.html" %}
 
 {% block content %}
-    <p>Hello World</p>
+    <div class="panel">
+        <h1>{{ clientName }}</h1>
+        <p>Client API ID: <input class="api-string client-api-id" readonly type="text" value="{{ clientApiId }}" /></p>
+        <p>Client API Key: <input class="api-string client-api-key" readonly type="text" value="{{ clientApiKey }}" /></p>
+        <p>Task URL: <input class="api-string" readonly type="text" value="Not available" /> <span class="task">Copy the task URL to schedule as a cron job.</span></p>
+        <p class="interface"> <button class="run-all" disabled>Import All</button></p>
+    </div>
+{% for list in activeLists %}
+    <div class="panel subscriber-list subscriber-list-active">
+        <h3>{{ list.Name }} <span><span class="active-subscribers">{{ list.activeSubscribers }}</span> active subscribers</span></h3>
+        <p>List API ID: <input class="api-string subscriber-list-id" readonly type="text" value="{{ list.ListID }}" /></p>
+        <p>Task URL: <input class="api-string" readonly type="text" value="{{ list.taskUrl }}" /> <span class="task">Copy the task URL to schedule as a cron job.</span></p>
+        <p class="interface"><textarea readonly>
+{
+    "Subscribers": [
+        {
+            "EmailAddress": "subscriber1@example.com",
+            "Name": "New Subscriber One",
+            "CustomFields": [
+{% for customField in list.customFields %}
+                {
+                    "Key": "{{ customField }}",
+                    "Value": ""
+                }{% if not loop.last %},{% endif %}
+
+{% endfor %}
+            ]
+        },
+        {
+            "EmailAddress": "subscriber2@example.com",
+            "Name": "New Subscriber Two",
+        },
+        {
+            "EmailAddress": "subscriber3@example.com",
+            "Name": "New Subscriber Three",
+        }
+    ],
+    "Resubscribe": false,
+    "QueueSubscriptionBasedAutoResponders": false,
+    "RestartSubscriptionBasedAutoresponders": false
+}
+        </textarea></p>
+        <p class="interface buttons"><button class="toggle-json">Show JSON</button> <span class="run-list"><span class="sprite-spinner-wrapper"><span class="sprite-spinner"><img src="/ui/img/spiffygif_24x24.png" alt=""/></span></span> <button data-list-id="{{ list.ListID }}">Import List</button></span></p>
+    </div>
+{% endfor %}
+{% for list in inactiveLists %}
+    <div class="panel subscriber-list subscriber-list-inactive">
+        <h3>{{ list.Name }}</h3>
+        <p>List API ID: <input class="api-string subscriber-list-id" type="text" readonly value="{{ list.ListID }}" /></p>
+    </div>
+{% endfor %}
+
 {% endblock content %}

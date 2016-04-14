@@ -12,12 +12,184 @@ body {
     background: #fffefc;
     color: #222023;
     font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
     -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 }
 
+.nav-bar {
+    background: rgba(221, 221, 221, .90);
+    border-bottom: .5px solid #aaaaaa;
+    height: 24px;
+    margin-bottom: 24px;
+    width: 100%;
+
+    /* clearfix via https://css-tricks.com/snippets/css/clear-fix/ */
+    content: "";
+    display: table;
+    clear: both;
+}
+    .nav-bar span,
+    .nav-bar a {
+        font-size: 12px;
+        line-height: 24px;
+        padding-left: 24px;
+    }
+    .nav-bar a {
+        color: #373737;
+        display: block;
+        float: right;
+        padding-right: 24px;
+        text-decoration: none;
+    }
+@media all and (max-width: 600px) {
+    .nav-bar {height: auto;}
+        .nav-bar a {float: none;}
+}
+
 .wrapper {
-    background: #dddddd;
     margin-right: auto;
     margin-left: auto;
     max-width: 990px;
+}
+    .panel {
+        margin-bottom: 24px;
+        padding-top: 12px;
+        padding-right: 24px;
+        padding-bottom: 12px;
+        padding-left: 24px;
+        width: 100%;
+
+        /* clearfix via https://css-tricks.com/snippets/css/clear-fix/ */
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .subscriber-list {
+        background: #fbf6ef;
+        border: 1px solid #e7dfcc;
+        border-radius: 4px;
+    }
+@media all and (max-width: 1024px) {
+    .subscriber-list {
+        border-right: 0;
+        border-left: 0;
+        border-radius: 0;
+    }
+}
+        .panel h1,
+        .panel h3 {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 24px;
+            margin-bottom: 12px;
+        }
+            .panel h3 > span {
+                float: right;
+                font-size: 12px;
+                font-weight: normal;
+                line-height: 24px;
+                vertical-align: bottom;
+            }
+@media all and (max-width: 1024px) {
+            .panel h3 > span {
+                display: block;
+                float: none;
+            }
+}
+        .panel p {
+            font-size: 12px;
+            line-height: 24px;
+            margin-bottom: 12px;
+        }
+        .panel p:last-child {
+            margin-bottom: 0;
+        }
+        .panel p.interface {
+            line-height: 1em;
+        }
+        .panel .task {
+            opacity: .4;
+        }
+            .panel input[type=text] {
+                background: #fbfcf7;
+                border: 1px solid #aaaaaa;
+                font-family: monospace;
+                font-size: 12px;
+                line-height: 18px;
+                margin-left: 6px;
+                margin-right: 6px;
+                padding-top: 3px;
+                padding-right: 8px;
+                padding-bottom: 3px;
+                padding-left: 8px;
+                width: 300px;
+            }
+            .panel input[type=text].client-api-key {
+                width: 400px;
+            }
+            .subscriber-list input[type=text] {
+                border: 1px solid #e7dfcc;
+            }
+            .panel button {
+                font-family: Helvetica, Arial, sans-serif;
+                font-size: 12px;
+                line-height: 12px;
+                padding-top: 3px;
+                padding-right: 6px;
+                padding-bottom: 3px;
+                padding-left: 6px;
+            }
+            .panel textarea {
+                background: #fbfcf7;
+                border: 1px solid #00b2ff;
+                font-size: 12px;
+                display: none;
+                height: 400px;
+                padding-top: 3px;
+                padding-right: 8px;
+                padding-bottom: 3px;
+                padding-left: 8px;
+                width: 100%;
+            }
+            .panel .toggle-json {
+                float: left;
+                margin-left: -4px;
+            }
+            .panel .run-all,
+            .panel .run-list {
+                float: right;
+            }
+@media all and (max-width: 600px) {
+        .panel {
+            padding-right: 16px;
+        }
+            .panel input[type=text],
+            .panel input[type=text].client-api-key {
+                display: block;
+                margin-left: -8px;
+                margin-right: 0;
+                width: 103%;
+            }
+}
+    .subscriber-list-active {
+        background: rgba(0, 178, 255, .25);
+        border-color: #00b2ff;
+    }
+            .subscriber-list-active input[type=text] {
+                border-color: #00b2ff;
+            }
+
+.sprite-spinner-wrapper {
+    display: none;
+}
+.sprite-spinner {
+    height: 24px;
+    overflow: hidden;
+    margin-right: 6px;
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    top: -1px;
+    vertical-align: middle;
 }

@@ -1,7 +1,7 @@
 <?php
 return [
     'settings' => [
-        'displayErrorDetails' => true, // set to false in production
+        'displayErrorDetails' => false, // set to false in production
 
         // Renderer settings
         'renderer' => [
@@ -14,7 +14,16 @@ return [
             'path' => __DIR__ . '/../logs/app.log',
         ],
 
-        // Campaign Monitor API key
-        'cmApiKey' => ''
+        'cm' => [
+            'clientId' => '',
+            'clientApiKey' => '',
+            'subscriberLists' => [
+                '',
+            ]
+        ],
+
+        'crm' => [
+
+        ]
     ],
 ];

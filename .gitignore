@@ -2,4 +2,13 @@
 /logs/*
 !/logs/README.md
 
+# This keeps you from uploading your cache dir to your github repo.
+# It also protects your API keys and data stored in /storage/config!
+# You will need to create /storage/ on your server, as well as
+# /storage/config/settings.php
 /storage/
+
+# This is where your custom, CRM-specific work will go. You'll probably
+# want to have this tracked in your repo and to be able to deploy it from there.
+# Just be careful you're not checking proprietary custom work into a public repo.
+/providers/

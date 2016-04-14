@@ -3,11 +3,17 @@ require __DIR__ . '/../vendor/autoload.php';
 spl_autoload_register(function ($classname) {
     require (__DIR__ . '/../classes/' . $classname . '.php');
 });
+spl_autoload_register(function ($classname) {
+    require (__DIR__ . '/../providers/' . $classname . '.php');
+});
 
 session_start();
 
-// Instantiate the app
+// Merge user-defined settings into default settings
 $settings = require __DIR__ . '/../src/settings.php';
+$config =  require __DIR__ . '/../storage/config/settings.php';
+$settings['settings'] = array_merge($settings['settings'], $config['settings']);
+// Instantiate the app
 $app = new \Slim\App($settings);
 
 // Get container
@@ -25,6 +31,9 @@ $container['view'] = function ($container) {
 
     return $view;
 };
+
+$container['cm'] = function ($container) { $cm = $container['settings']['cm']; return $cm; };
+$container['crm'] = function ($container) { $cm = $container['settings']['crm']; return $cm; };
 
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';
