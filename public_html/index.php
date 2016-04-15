@@ -10,6 +10,7 @@ session_start();
 $settings = require __DIR__ . '/../src/settings.php';
 $config =  require __DIR__ . '/../storage/config/settings.php';
 $settings['settings'] = array_merge($settings['settings'], $config['settings']);
+
 // Instantiate the app
 $app = new \Slim\App($settings);
 

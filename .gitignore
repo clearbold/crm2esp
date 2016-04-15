@@ -6,7 +6,10 @@
 # It also protects your API keys and data stored in /storage/config!
 # You will need to create /storage/ on your server, as well as
 # /storage/config/settings.php
-/storage/
+/storage/*
+!/storage/README.md
+/storage/config/*
+!/storage/config/README.md
 
 /classes/*
 
