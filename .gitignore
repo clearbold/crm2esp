@@ -8,8 +8,6 @@
 # /storage/config/settings.php
 /storage/*
 !/storage/README.md
-/storage/config/*
-!/storage/config/README.md
 
 /classes/*
 
