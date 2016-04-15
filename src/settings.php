@@ -26,6 +26,10 @@ return [
 
         ],
 
-        'provider' => 'GenericCrm'
+        'provider' => 'GenericCrm',
+
+        'auth' => [
+            'user' => 'password'
+        ]
     ],
 ];

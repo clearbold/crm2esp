@@ -6,11 +6,15 @@ $app->get('/import-list/{listId}', function ($request, $response, $args) {
     $listId = $request->getAttribute('listId');
 
     $crm = new ReflectionClass($this->provider);
-    $crm = $crm->newInstance();
+    $crm = $crm->newInstance($this->cm, $this->crm);
 
     $subscriberImport = new Subscriber($listId, $this->cm['clientApiKey']);
 
-    $result = $subscriberImport->importSubscribers($crm->getListToImport($listId)['Subscribers'], false);
+    $result = $subscriberImport->importSubscribers(
+                                $crm->getListToImport($listId)['Subscribers'],
+                                $crm->getListToImport($listId)['Resubscribe'],
+                                $crm->getListToImport($listId)['QueueSubscriptionBasedAutoResponders'],
+                                $crm->getListToImport($listId)['RestartSubscriptionBasedAutoresponders']);
     $response->withJson($result);
 
 })->setName('importList');
@@ -49,10 +53,6 @@ $app->get('/console', function($request, $response, $args) {
 
 })->setName('console');
 
-$app->get('/[{name}]', function ($request, $response, $args) {
-    // Sample log message
-    // $this->logger->info("Slim-Skeleton '/' route");
-
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
+$app->get('/', function ($request, $response, $args) {
+    return $response->withStatus(302)->withHeader('Location', '/console');
 });

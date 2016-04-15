@@ -33,6 +33,13 @@ $container['cm'] = function ($container) { $cm = $container['settings']['cm']; r
 $container['crm'] = function ($container) { $crm = $container['settings']['crm']; return $crm; };
 $container['provider'] = function ($container) { $provider = $container['settings']['provider']; return $provider; };
 
+$app->add(new \Slim\Middleware\HttpBasicAuthentication([
+    "path" => "/console",
+    "realm" => "Protected",
+    "secure" => false,
+    "users" => $container['settings']['auth']
+]));
+
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';
 

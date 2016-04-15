@@ -2,9 +2,13 @@
 
 class GenericCrm implements Crm {
 
-    public function __construct()
-    {
+    protected $cm;
+    protected $crm;
 
+    public function __construct($cm, $crm)
+    {
+        $this->cm = $cm;
+        $this->crm = $crm;
     }
 
     public function getListToImport($listId)
@@ -22,9 +26,21 @@ class GenericCrm implements Crm {
             case 'myListId':
                 // Do some CRM-specific work
                 break;
-            default:
-                // Catch-all demo for Campaign Monitor
+            case 'specificListId':
                 $result = $this->myListSpecificFunction($listId);
+                break;
+            default:
+                $result = [
+                    'Subscribers' => [
+                        [
+                            'EmailAddress' => 'testuser+' . (string)time() . '@testdomain.com',
+                        ]
+                    ],
+                    'Resubscribe' => false,
+                    'QueueSubscriptionBasedAutoResponders' => false,
+                    'RestartSubscriptionBasedAutoresponders' => false
+                ];
+                break;
         }
         return $result;
     }
