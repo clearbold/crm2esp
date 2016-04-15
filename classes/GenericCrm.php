@@ -1,6 +1,6 @@
 <?php
 
-class GenericCrm {
+class GenericCrm implements Crm {
 
     public function __construct()
     {

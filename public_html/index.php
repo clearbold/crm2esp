@@ -3,9 +3,6 @@ require __DIR__ . '/../vendor/autoload.php';
 spl_autoload_register(function ($classname) {
     require (__DIR__ . '/../classes/' . $classname . '.php');
 });
-spl_autoload_register(function ($classname) {
-    require (__DIR__ . '/../providers/' . $classname . '.php');
-});
 
 session_start();
 
@@ -33,7 +30,8 @@ $container['view'] = function ($container) {
 };
 
 $container['cm'] = function ($container) { $cm = $container['settings']['cm']; return $cm; };
-$container['crm'] = function ($container) { $cm = $container['settings']['crm']; return $cm; };
+$container['crm'] = function ($container) { $crm = $container['settings']['crm']; return $crm; };
+$container['provider'] = function ($container) { $provider = $container['settings']['provider']; return $provider; };
 
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';

@@ -6,7 +6,7 @@
         <p>Client API ID: <input class="api-string client-api-id" readonly type="text" value="{{ clientApiId }}" /></p>
         <p>Client API Key: <input class="api-string client-api-key" readonly type="text" value="{{ clientApiKey }}" /></p>
         <p>Task URL: <input class="api-string" readonly type="text" value="Not available" /> <span class="task">Copy the task URL to schedule as a cron job.</span></p>
-        <p class="interface"> <button class="run-all" disabled>Import All</button></p>
+        {# <p class="interface"> <button class="run-all" disabled>Import All</button></p> #}
     </div>
 {% for list in activeLists %}
     <div class="panel subscriber-list subscriber-list-active">

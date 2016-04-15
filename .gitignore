@@ -8,7 +8,10 @@
 # /storage/config/settings.php
 /storage/
 
-# This is where your custom, CRM-specific work will go. You'll probably
-# want to have this tracked in your repo and to be able to deploy it from there.
-# Just be careful you're not checking proprietary custom work into a public repo.
-/providers/
+/classes/*
+
+!/classes/Client.php
+!/classes/Crm.php
+!/classes/GenericCrm.php
+!/classes/Subscriber.php
+!/classes/SubscriberList.php

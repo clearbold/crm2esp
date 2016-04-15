@@ -24,6 +24,8 @@ return [
 
         'crm' => [
 
-        ]
+        ],
+
+        'provider' => 'GenericCrm'
     ],
 ];

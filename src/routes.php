@@ -4,14 +4,12 @@
 $app->get('/import-list/{listId}', function ($request, $response, $args) {
 
     $listId = $request->getAttribute('listId');
-    // Here's where we import the list...
-    // Step 1: Write a class for our generic CRM system
-    $crm = new GenericCrm();
-    // Step 2: Figure out how to fetch list data from generic CRM as a config'd provider
-    // Step 3: Use our CM Subscriber class to import that list
+
+    $crm = new ReflectionClass($this->provider);
+    $crm = $crm->newInstance();
+
     $subscriberImport = new Subscriber($listId, $this->cm['clientApiKey']);
-    // This returns false if NO subscribers imported OR if invalid.
-    // If valid AND new subscriber, returns details.
+
     $result = $subscriberImport->importSubscribers($crm->getListToImport($listId)['Subscribers'], false);
     $response->withJson($result);
 
