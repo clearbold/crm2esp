@@ -31,7 +31,7 @@ Each active list on the console features a *Show JSON* button that will reveal t
 
 Do not edit the default settings in `src/settings.php`. Reference those defaults and set your own variables in `storage/config/settings.php`.
 
-You will need to create the `storage/config` directory, and the `storage/config/settings.php` file as these are excluded from the git repository. Those directories and files will need to be writeable. Your `settings.php` file should look like:
+You will need to create the `storage/config` directory, and the `storage/config/settings.php` file as these are excluded from the git repository. Your `settings.php` file should look like:
 
 ```
 <?php
