@@ -1,5 +1,7 @@
 <?php
 
+namespace Crm2Esp;
+
 require __DIR__ . '/../vendor/campaignmonitor/createsend-php/csrest_clients.php';
 
 class Client {
@@ -7,7 +9,7 @@ class Client {
 
     public function __construct($clientId, $apiKey)
     {
-        $this->client = new CS_REST_Clients(
+        $this->client = new \CS_REST_Clients(
             $clientId,
             $apiKey);
     }

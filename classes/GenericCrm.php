@@ -1,5 +1,7 @@
 <?php
 
+namespace Crm2Esp;
+
 class GenericCrm implements Crm {
 
     protected $cm;

@@ -8,7 +8,7 @@ $app->get('/import-list/{listId}', function ($request, $response, $args) {
     $crm = new ReflectionClass($this->provider);
     $crm = $crm->newInstance($this->cm, $this->crm);
 
-    $subscriberImport = new Subscriber($listId, $this->cm['clientApiKey']);
+    $subscriberImport = new \Crm2Esp\Subscriber($listId, $this->cm['clientApiKey']);
 
     $result = $subscriberImport->importSubscribers(
                                 $crm->getListToImport($listId)['Subscribers'],
@@ -21,7 +21,7 @@ $app->get('/import-list/{listId}', function ($request, $response, $args) {
 
 $app->get('/console', function($request, $response, $args) {
 
-    $client = new Client($this->cm['clientId'], $this->cm['clientApiKey']);
+    $client = new \Crm2Esp\Client($this->cm['clientId'], $this->cm['clientApiKey']);
     $lists = $client->getLists();
 
     $clientDetails = $client->getDetails();
@@ -33,7 +33,7 @@ $app->get('/console', function($request, $response, $args) {
     {
         if ( in_array($list->ListID, $this->cm['subscriberLists']) )
         {
-            $subscriberList = new SubscriberList($list->ListID, $this->cm['clientApiKey']);
+            $subscriberList = new \Crm2Esp\SubscriberList($list->ListID, $this->cm['clientApiKey']);
             $list->customFields = $subscriberList->getCustomFields();
             $list->activeSubscribers = $subscriberList->getActiveSubscribers();
             $list->taskUrl = $request->getUri()->getScheme() . '://' . $request->getUri()->getHost() . '/import-list/' . $list->ListID;

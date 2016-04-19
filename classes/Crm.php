@@ -1,5 +1,7 @@
 <?php
 
+namespace Crm2Esp;
+
 interface Crm {
 
     public function __construct($cm, $crm);

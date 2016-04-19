@@ -1,7 +1,21 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 spl_autoload_register(function ($classname) {
-    require (__DIR__ . '/../classes/' . $classname . '.php');
+    // $prefix = 'Crm2Esp';
+    // $len = strlen($prefix);
+    // if (strncmp($prefix, $class, $len) !== 0) {
+    //     return;
+    // }
+    // $relative_class = substr($class, $len);
+    $prefix = 'Crm2Esp';
+    $len = strlen($prefix);
+    if (strncmp($prefix, $classname, $len) !== 0) {
+        return;
+    }
+    $relative_class = substr($classname, $len);
+    $file = __DIR__ . '/../classes' . str_replace('\\', '/', $relative_class) . '.php';
+    require $file;
+    //require (__DIR__ . '/../classes' . $classname . '.php');
 });
 
 session_start();

@@ -1,5 +1,7 @@
 <?php
 
+namespace Crm2Esp;
+
 require __DIR__ . '/../vendor/campaignmonitor/createsend-php/csrest_lists.php';
 
 class SubscriberList {
@@ -7,7 +9,7 @@ class SubscriberList {
 
     public function __construct($listId, $apiKey)
     {
-        $this->list = new CS_REST_Lists(
+        $this->list = new \CS_REST_Lists(
             $listId,
             $apiKey);
     }
