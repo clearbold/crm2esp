@@ -27,6 +27,8 @@ You'll need to fill in the `getListToImport` function, which will be passed your
 
 Each active list on the console features a *Show JSON* button that will reveal the target schema for that list, including any custom fields.
 
+All classes created must use namespace `Crm2Esp`. See `GenericCrm.php` for an example.
+
 ### Configuration
 
 Do not edit the default settings in `src/settings.php`. Reference those defaults and set your own variables in `storage/config/settings.php`.
