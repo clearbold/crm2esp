@@ -54,7 +54,7 @@ return [
             // Any values you store here will be available in your code
         ],
 
-        'provider' => 'GenericCrm',
+        'provider' => '\Crm2Esp\GenericCrm',
 
         'auth' => [
             'user' => 'password'

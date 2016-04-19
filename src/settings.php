@@ -26,7 +26,7 @@ return [
 
         ],
 
-        'provider' => 'GenericCrm',
+        'provider' => '\Crm2Esp\GenericCrm',
 
         'auth' => [
             'user' => 'password'
