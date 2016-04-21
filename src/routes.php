@@ -1,6 +1,20 @@
 <?php
 // Routes
 
+$app->get('/vin65test', function($request, $response, $args) {
+    $data = [
+        'Security' => [
+            'Username' => 'CampaignMonitorTG',
+            'Password' => 'KarsonRules69'
+        ]
+    ];
+    $client = new \SoapClient("https://webservices.vin65.com/V300/ListService.cfc?wsdl", array("trace"=>0, "exceptions"=>0));
+    $response = $client->SearchLists($data);
+
+    var_dump($response); exit;
+
+});
+
 $app->get('/import-list/{listId}', function ($request, $response, $args) {
 
     $listId = $request->getAttribute('listId');

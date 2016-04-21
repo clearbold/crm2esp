@@ -71,5 +71,7 @@ Update the `provider` value in your settings to match the `ClassName` of your `c
 
 ### TODO
 
-* [ ] Log recent (last 5, 10?) import details, display per list
+* [ ] Add `Email` interface, `GenericEmail` class, and `Postmark` email class for error emails.
+* [ ] Add optional `mysqli` database connection to container based on settings, pass to CRM class.
+* [ ] Log recent (last 5, 10?) import details, display per list (this may need to be per-CMR, database)
 * [ ] If no CM API key is set, raise an error
