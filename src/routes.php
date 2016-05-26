@@ -1,60 +1,82 @@
 <?php
 // Routes
 
-$app->get('/vin65test', function($request, $response, $args) {
-    $data = [
-        'Security' => [
-            'Username' => 'CampaignMonitorTG',
-            'Password' => 'KarsonRules69'
-        ]
-    ];
-    $client = new \SoapClient("https://webservices.vin65.com/V300/ListService.cfc?wsdl", array("trace"=>0, "exceptions"=>0));
-    $response = $client->SearchLists($data);
+$app->get('/delete-lists/{profile}', function ($request, $response, $args) {
+    $profile = $request->getAttribute('profile');
 
-    var_dump($response); exit;
-
-});
+    $subscriberList = new \Crm2Esp\SubscriberList($this->cm['clients']['clientApiKey'], $this->cm['clients']['clientId'], NULL);
+    $subscriberList->deleteAllLists();
+})->setName('deleteLists');
 
 $app->get('/import-list/{listId}', function ($request, $response, $args) {
 
     $listId = $request->getAttribute('listId');
 
     $crm = new ReflectionClass($this->provider);
-    $crm = $crm->newInstance($this->cm, $this->crm);
+    $crm = $crm->newInstance($this->cm, $this->crm, $this->db);
 
+    if ( $crm->getListToImport($listId) > 0 )
+    {
+        // Redirect to run-import/$listId
+        return $response->withRedirect("/run-import/$listId");
+    }
+    else
+    {
+        $response->withJson(0);
+    }
+    exit;
     $subscriberImport = new \Crm2Esp\Subscriber($listId, $this->cm['clientApiKey']);
-
     $result = $subscriberImport->importSubscribers(
-                                $crm->getListToImport($listId)['Subscribers'],
-                                $crm->getListToImport($listId)['Resubscribe'],
-                                $crm->getListToImport($listId)['QueueSubscriptionBasedAutoResponders'],
-                                $crm->getListToImport($listId)['RestartSubscriptionBasedAutoresponders']);
+                                $listToImport['Subscribers'],
+                                $listToImport['Resubscribe'],
+                                $listToImport['QueueSubscriptionBasedAutoResponders'],
+                                $listToImport['RestartSubscriptionBasedAutoresponders']);
     $response->withJson($result);
 
 })->setName('importList');
 
+$app->get('/run-import/{source}', function ($request, $response, $args) {
+    $source = $request->getAttribute('source');
+    $crm = new ReflectionClass($this->provider);
+    $crm = $crm->newInstance($this->cm, $this->crm, $this->db);
+    $crm->runImport($source);
+})->setName('runImport');
+
 $app->get('/console', function($request, $response, $args) {
-
-    $client = new \Crm2Esp\Client($this->cm['clientId'], $this->cm['clientApiKey']);
-    $lists = $client->getLists();
-
-    $clientDetails = $client->getDetails();
 
     $activeLists = array();
     $inactiveLists = array();
 
-    foreach($lists as $list)
+    $sources = array();
+
+    foreach($this->crm['sources'] as $source)
     {
-        if ( in_array($list->ListID, $this->cm['subscriberLists']) )
+        $sources[] = array(
+            'source' => $source,
+            'taskUrl' => $request->getUri()->getScheme() . '://' . $request->getUri()->getHost() . '/import-list/' . $source
+        );
+    }
+
+    foreach($this->cm['clients'] as $clientSettings)
+    {
+        $client = new \Crm2Esp\Client($clientSettings['clientId'], $clientSettings['clientApiKey']);
+        $lists = $client->getLists();
+
+        $clientDetails = $client->getDetails();
+
+        foreach($lists as $list)
         {
-            $subscriberList = new \Crm2Esp\SubscriberList($list->ListID, $this->cm['clientApiKey']);
-            $list->customFields = $subscriberList->getCustomFields();
-            $list->activeSubscribers = $subscriberList->getActiveSubscribers();
-            $list->taskUrl = $request->getUri()->getScheme() . '://' . $request->getUri()->getHost() . '/import-list/' . $list->ListID;
-            $activeLists[] = $list;
+            if ( in_array($list->ListID, $clientSettings['subscriberLists']) )
+            {
+                $subscriberList = new \Crm2Esp\SubscriberList($clientSettings['clientApiKey'], NULL, $list->ListID);
+                $list->customFields = $subscriberList->getCustomFields();
+                $list->activeSubscribers = $subscriberList->getActiveSubscribers();
+                $list->taskUrl = $request->getUri()->getScheme() . '://' . $request->getUri()->getHost() . '/import-list/' . $list->ListID;
+                $activeLists[] = $list;
+            }
+            else
+                $inactiveLists[] = $list;
         }
-        else
-            $inactiveLists[] = $list;
     }
 
     return $this->view->render($response, 'console/index.html', [
@@ -62,7 +84,8 @@ $app->get('/console', function($request, $response, $args) {
         'clientApiKey' => $clientDetails->ApiKey,
         'clientApiId' => $clientDetails->BasicDetails->ClientID,
         'activeLists' => $activeLists,
-        'inactiveLists' => $inactiveLists
+        'inactiveLists' => $inactiveLists,
+        'sources' => $sources
     ]);
 
 })->setName('console');

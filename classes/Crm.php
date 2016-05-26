@@ -4,7 +4,7 @@ namespace Crm2Esp;
 
 interface Crm {
 
-    public function __construct($cm, $crm);
+    public function __construct($cm, $crm, $db);
 
     /**
      * Returns an array. See GenericCrm for examples.
@@ -17,5 +17,7 @@ interface Crm {
      * See https://www.campaignmonitor.com/api/subscribers/#importing_many_subscribers
     */
     public function getListToImport($listId);
+
+    public function runImport($listId);
 
 }

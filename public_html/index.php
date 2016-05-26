@@ -47,6 +47,15 @@ $container['view'] = function ($container) {
 $container['cm'] = function ($container) { $cm = $container['settings']['cm']; return $cm; };
 $container['crm'] = function ($container) { $crm = $container['settings']['crm']; return $crm; };
 $container['provider'] = function ($container) { $provider = $container['settings']['provider']; return $provider; };
+$container['database'] = function ($container) { $database = $container['settings']['database']; return $database; };
+$container['db'] = function ($container)
+{
+    $db = new \Crm2Esp\Database($container['database']['server'],
+                                $container['database']['username'],
+                                $container['database']['password'],
+                                $container['database']['database']);
+    return $db;
+};
 
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
     "path" => "/console",

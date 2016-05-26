@@ -8,6 +8,13 @@
         <p>Task URL: <input class="api-string" readonly type="text" value="Not available" /> <span class="task">Copy the task URL to schedule as a cron job.</span></p>
         {# <p class="interface"> <button class="run-all" disabled>Import All</button></p> #}
     </div>
+{% for source in sources %}
+    <div class="panel source source-active">
+        <h3>{{ source.source }}</h3>
+        <p>Task URL: <input class="api-string" readonly type="text" value="{{ source.taskUrl }}" /> <span class="task">Copy the task URL to schedule as a cron job.</span></p>
+        <p class="interface buttons"><button data-list-id="{{ source.source }}">Import List</button></span></p>
+    </div>
+{% endfor %}
 {% for list in activeLists %}
     <div class="panel subscriber-list subscriber-list-active">
         <h3>{{ list.Name }} <span><span class="active-subscribers">{{ list.activeSubscribers }}</span> active subscribers</span></h3>

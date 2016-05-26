@@ -6,11 +6,13 @@ class GenericCrm implements Crm {
 
     protected $cm;
     protected $crm;
+    protected $db;
 
-    public function __construct($cm, $crm)
+    public function __construct($cm, $crm, $db)
     {
         $this->cm = $cm;
         $this->crm = $crm;
+        $this->db = $db;
     }
 
     public function getListToImport($listId)
@@ -44,6 +46,12 @@ class GenericCrm implements Crm {
                 ];
                 break;
         }
+        return $result;
+    }
+
+    public function runImport($listId)
+    {
+        $result = 0;
         return $result;
     }
 

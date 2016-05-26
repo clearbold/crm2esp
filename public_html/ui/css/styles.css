@@ -74,13 +74,15 @@ body {
         clear: both;
     }
 
-    .subscriber-list {
+    .subscriber-list,
+    .source {
         background: #fbf6ef;
         border: 1px solid #e7dfcc;
         border-radius: 4px;
     }
 @media all and (max-width: 1024px) {
-    .subscriber-list {
+    .subscriber-list,
+    .source {
         border-right: 0;
         border-left: 0;
         border-radius: 0;
@@ -137,7 +139,8 @@ body {
             .panel input[type=text].client-api-key {
                 width: 400px;
             }
-            .subscriber-list input[type=text] {
+            .subscriber-list input[type=text],
+            .source input[type=text] {
                 border: 1px solid #e7dfcc;
             }
             .panel button {
@@ -181,11 +184,14 @@ body {
                 width: 103%;
             }
 }
-    .subscriber-list-active {
+    .subscriber-list-active,
+    .source-active {
         background: rgba(0, 178, 255, .25);
         border-color: #00b2ff;
     }
+            .subscriber-list-active input[type=text],
             .subscriber-list-active input[type=text] {
+
                 border-color: #00b2ff;
             }
 

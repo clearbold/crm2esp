@@ -13,6 +13,10 @@
 
 !/classes/Client.php
 !/classes/Crm.php
+!/classes/Database.php
 !/classes/GenericCrm.php
+!/classes/Logger.php
 !/classes/Subscriber.php
 !/classes/SubscriberList.php
+
+/notes/*

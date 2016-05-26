@@ -69,9 +69,30 @@ Anything you put in the `cm` or `crm` arrays in your settings are available via 
 
 Update the `provider` value in your settings to match the `ClassName` of your `classes/[ClassName].php` file, where you'll do custom work for your CRM.
 
+### Up next
+
+* [x] `createList` error on list name/id.
+* [x] If **any** `imported` flags are set to `no`, skip import in case it's still running another one.
+* [x] Redirect to `runImport`
+* [x] Fill in `runImport`
+* [x] Set `imported` to `yes`
+* [ ] Log results (logger class)
+* [ ] Clean up old log records
+* [x] Clean out all `yes`
+* [x] Create delete lists route for testing
+* [x] Make sure `runImport` only runs if there are **no** `subcribers` table entries with `imported` set to `yes` (If all == `yes`, truncate)
+* [ ] What should `runImport` return?
+* [ ] Parameterize `deleteLists`, client settings for profile (currently assumes JamesCole in settings)
+
 ### TODO
 
+* [ ] Clean up warnings and notices on console.
+* [ ] Change `source` and `list` nomenclature to... `account`? `profile`?
+* [x] There's a CM delay in non-existent lists being created - How to account for that? Where list created asynch, catch subscribers on the next pass? This should work.
+* [ ] Support multiple CM client accounts on target side
+* [ ] Need a case on the front-end if 0 is returned/fetch not run.
+* [ ] Support exempting source lists
 * [ ] Add `Email` interface, `GenericEmail` class, and `Postmark` email class for error emails.
-* [ ] Add optional `mysqli` database connection to container based on settings, pass to CRM class.
+* [x] Add optional `mysqli` database connection to container based on settings, pass to CRM class.
 * [ ] Log recent (last 5, 10?) import details, display per list (this may need to be per-CMR, database)
 * [ ] If no CM API key is set, raise an error

@@ -5,13 +5,55 @@ namespace Crm2Esp;
 require __DIR__ . '/../vendor/campaignmonitor/createsend-php/csrest_lists.php';
 
 class SubscriberList {
+    protected $apiKey;
+    protected $client;
+    protected $clientId;
+    protected $clientLists;
     protected $list;
+    protected $lists;
 
-    public function __construct($listId, $apiKey)
+    public function __construct($apiKey, $clientId = NULL, $listId = NULL)
     {
-        $this->list = new \CS_REST_Lists(
-            $listId,
-            $apiKey);
+        $this->apiKey = $apiKey;
+        $this->clientId = $clientId;
+
+        if ( !is_null($listId) )
+            $this->list = new \CS_REST_Lists(
+                $listId,
+                $apiKey);
+
+        if ( !is_null($clientId) )
+        {
+            $this->clientLists = new \CS_REST_Lists(
+                NULL,
+                $apiKey);
+
+            $this->client = new Client($clientId, $apiKey);
+            $this->lists = $this->client->getLists();
+        }
+    }
+
+    public function createList($listName)
+    {
+        // If list in all lists, return list ID
+        foreach ( $this->lists as $list )
+        {
+            if ( $list->Name == $listName )
+                return $list->ListID;
+        }
+
+        // Else, create list
+        $result = $this->clientLists->create($this->clientId, array(
+            'Title' => $listName,
+            'UnsubscribeSetting' => CS_REST_LIST_UNSUBSCRIBE_SETTING_ALL_CLIENT_LISTS
+        ));
+
+        if ( $result->was_successful() ) {
+            return $result->response;
+        } else {
+            // handle error;
+            return false;
+        }
     }
 
     public function getDetails()
@@ -41,5 +83,17 @@ class SubscriberList {
         $return = $result->was_successful() ? $result->response->TotalActiveSubscribers : false;
 
         return $return;
+    }
+
+    public function deleteAllLists()
+    {
+        foreach ( $this->lists as $list )
+        {
+            $list = new \CS_REST_Lists(
+                $list->ListID,
+                $this->apiKey);
+            $result = $list->delete();
+        }
+        return 1;
     }
 }

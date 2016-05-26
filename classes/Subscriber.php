@@ -17,7 +17,7 @@ class Subscriber {
     public function importSubscribers($subscribers)
     {
         $result = $this->list->import($subscribers, false);
-
+        
         $return = $result->was_successful() ? $result->response : false;
 
         return $return;

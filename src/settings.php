@@ -15,21 +15,31 @@ return [
         ],
 
         'cm' => [
-            'clientId' => '',
-            'clientApiKey' => '',
-            'subscriberLists' => [
-                '',
+            'clients' => [
+                'name' => '',
+                'clientId' => '',
+                'clientApiKey' => '',
+                'subscriberLists' => [
+                    '',
+                ]
             ]
         ],
 
         'crm' => [
-
+            'sources' => []
         ],
 
         'provider' => '\Crm2Esp\GenericCrm',
 
         'auth' => [
             'user' => 'password'
+        ],
+
+        'database' => [
+            'server' => '',
+            'username' => '',
+            'password' => '',
+            'database' => ''
         ]
     ],
 ];
